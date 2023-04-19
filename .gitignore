@@ -1,5 +1,4 @@
 access.log
-
 node_modules/
-
-/coverage/
+coverage
+*.log
