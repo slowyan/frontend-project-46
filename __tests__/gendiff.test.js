@@ -16,6 +16,6 @@ const file1 = getFixturePath('file1.json');
 const file2 = getFixturePath('file2.json');
 
 test('plain gendiff', () => {
-    const actual = gendiff(file1, file2);
-    expect(actual).toEqual(expected1);
+	const actual = gendiff(file1, file2);
+	expect(actual).toEqual(expected1);
 });
