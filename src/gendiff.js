@@ -1,15 +1,10 @@
-import fs from 'fs';
-import path from 'path';
+import getParse from './getParse.js';
+import readFile from './readFile.js';
 import _ from 'lodash';
-
-const readFile = (filepath) => {
-	const abspath = path.resolve(filepath);
-	const obj = fs.readFileSync(abspath);
-	return obj;
-};
+import path from 'path';
 
 const gendiff = (filepath1, filepath2) => {
-	const [obj1, obj2] = [filepath1, filepath2].map((fp) => JSON.parse(readFile(fp)));
+	const [obj1, obj2] = [filepath1, filepath2].map((fp) => getParse(readFile(fp), path.extname(fp)));
 	const key1 = Object.keys(obj1);
 	const key2 = Object.keys(obj2);
 	const keys = _.union(key1, key2);

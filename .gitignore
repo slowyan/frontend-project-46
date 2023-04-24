@@ -2,3 +2,5 @@ access.log
 node_modules/
 coverage
 *.log
+file1.yml
+file2.yml
