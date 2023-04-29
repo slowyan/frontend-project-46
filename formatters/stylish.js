@@ -1,23 +1,20 @@
+const getMargin = (depth, char = ' ') => char.repeat(depth * 4 - 2);
+
 const stylish = (diffTree) => {
 	const iter = (node, depth = 1) => {
-		if (typeof node !== 'object' || node === null) {
-			return `${node}`;
-		}
-		const indentSize = depth * 4 - 2;
-		const currentIndent = ' '.repeat(indentSize);
 		const bracketIndent = ' '.repeat(depth * 4 - 4);
 		const diff = node.flatMap((item) => {
 			switch(item.type) {
 			case 'nested':
-				return `${currentIndent}  ${item.key}: ${iter(item.children, depth + 1)}`;
+				return `${getMargin(depth)}  ${item.key}: ${iter(item.children, depth + 1)}`;
 			case 'unchanged':
-				return `${currentIndent}  ${item.key}: ${stringify(item.value, depth)}`;
+				return `${getMargin(depth)}  ${item.key}: ${stringify(item.value, depth)}`;
 			case 'added':
-				return `${currentIndent}+ ${item.key}: ${stringify(item.value, depth)}`;
+				return `${getMargin(depth)}+ ${item.key}: ${stringify(item.value, depth)}`;
 			case 'deleted':
-				return `${currentIndent}- ${item.key}: ${stringify(item.value, depth)}`;
+				return `${getMargin(depth)}- ${item.key}: ${stringify(item.value, depth)}`;
 			case 'changed':
-				return `${currentIndent}- ${item.key}: ${stringify(item.oldValue, depth)}\n${currentIndent}+ ${item.key}: ${stringify(item.value, depth)}`;
+				return `${getMargin(depth)}- ${item.key}: ${stringify(item.oldValue, depth)}\n${getMargin(depth)}+ ${item.key}: ${stringify(item.value, depth)}`;
 			default:
 				throw new Error(`This ${item.type} is not supported`);
 			}
