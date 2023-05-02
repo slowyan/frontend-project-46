@@ -10,18 +10,30 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-test('gendiff json nested', () => {
-	const expected = readFile('expected.txt');
-	const json1 = getFixturePath('file1.json');
-	const json2 = getFixturePath('file2.json');
+
+const expectedStylish = readFile('expectedStylish.txt');
+const expectedPlain = readFile('expectedPlain.txt');
+const json1 = getFixturePath('file1.json');
+const json2 = getFixturePath('file2.json');
+const yml1 = getFixturePath('file1.yml');
+const yml2 = getFixturePath('file2.yml');
+
+test('json stylish', () => {
 	const actual = gendiff(json1, json2);
-	expect(actual).toEqual(expected);
+	expect(actual).toEqual(expectedStylish);
 });
 
-test('gendiff yaml nested', () => {
-	const expected = readFile('expected.txt');
-	const yml1 = getFixturePath('file1.yml');
-	const yml2 = getFixturePath('file2.yml');
+test('yaml stylish', () => {
 	const actual = gendiff(yml1, yml2);
-	expect(actual).toEqual(expected);
+	expect(actual).toEqual(expectedStylish);
+});
+
+test('json plain', () => {
+	const actual = gendiff(json1, json2, 'plain');
+	expect(actual).toEqual(expectedPlain);
+});
+
+test('yaml plain', () => {
+	const actual = gendiff(yml1, yml2, 'plain');
+	expect(actual).toEqual(expectedPlain);
 });

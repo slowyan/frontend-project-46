@@ -1,4 +1,4 @@
-import generationFormat from '../formatters/generationFormat.js';
+import generationFormat from '../formatters/index.js';
 import buildTree from './buildTree.js';
 import getParse from './getParse.js';
 import path from 'path';

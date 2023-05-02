@@ -13,5 +13,3 @@ const getParse = (data, format) => {
 };
 
 export default getParse;
-// const abspath = path.resolve(filepath);
-// const obj = fs.readFileSync(abspath);
