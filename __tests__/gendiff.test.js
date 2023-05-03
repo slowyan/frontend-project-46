@@ -39,7 +39,7 @@ test('yaml plain', () => {
 	expect(actual).toEqual(expectedPlain);
 });
 
-test('yaml json', () => {
+test('json', () => {
 	const actual = gendiff(json1, json2, 'json');
 	expect(actual).toEqual(expectedJson);
 });
