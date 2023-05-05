@@ -9,35 +9,20 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-const expectedStylish = readFile('expectedStylish.txt');
-const expectedPlain = readFile('expectedPlain.txt');
-const expectedJson = readFile('expectedJson.txt');
-const json1 = getFixturePath('file1.json');
-const json2 = getFixturePath('file2.json');
-const yml1 = getFixturePath('file1.yml');
-const yml2 = getFixturePath('file2.yml');
+describe.each([
+  ['stylish', 'expectedStylish.txt'],
+  ['plain', 'expectedPlain.txt'],
+  ['json', 'expectedJson.txt'],
+])('gendiff formatter: %s', (formatter, expectedFilename) => {
+  const expected = readFile(expectedFilename);
 
-test('json stylish', () => {
-  const actual = gendiff(json1, json2);
-  expect(actual).toEqual(expectedStylish);
-});
-
-test('yaml stylish', () => {
-  const actual = gendiff(yml1, yml2);
-  expect(actual).toEqual(expectedStylish);
-});
-
-test('json plain', () => {
-  const actual = gendiff(json1, json2, 'plain');
-  expect(actual).toEqual(expectedPlain);
-});
-
-test('yaml plain', () => {
-  const actual = gendiff(yml1, yml2, 'plain');
-  expect(actual).toEqual(expectedPlain);
-});
-
-test('json', () => {
-  const actual = gendiff(json1, json2, 'json');
-  expect(actual).toEqual(expectedJson);
+  test.each([
+    ['json', 'file1.json', 'file2.json'],
+    ['yml', 'file1.yml', 'file2.yml'],
+  ])('input format: %s', (inputExt, file1, file2) => {
+    const filepath1 = getFixturePath(file1);
+    const filepath2 = getFixturePath(file2);
+    const actual = gendiff(filepath1, filepath2, formatter);
+    expect(actual).toEqual(expected);
+  });
 });
