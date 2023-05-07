@@ -1,16 +1,20 @@
 import path from 'path';
 import fs from 'fs';
-import generationFormat from './formatters/index.js';
 import buildTree from './buildTree.js';
 import parse from './parse.js';
+import format from './formatters/index.js';
 
-const gendiff = (filepath1, filepath2, format = 'stylish') => {
-  const content1 = fs.readFileSync(filepath1);
-  const content2 = fs.readFileSync(filepath2);
-  const obj1 = parse(content1, path.extname(filepath1).slice(1));
-  const obj2 = parse(content2, path.extname(filepath2).slice(1));
-  const diffTree = buildTree(obj1, obj2);
-  return generationFormat(diffTree, format);
+const getFileData = (filepath) => {
+  const content = fs.readFileSync(filepath);
+  const parsedContent = parse(content, path.extname(filepath).slice(1));
+  return parsedContent;
+};
+
+const gendiff = (filepath1, filepath2, formatName = 'stylish') => {
+  const data1 = getFileData(filepath1);
+  const data2 = getFileData(filepath2);
+  const diffTree = buildTree(data1, data2);
+  return format(diffTree, formatName);
 };
 
 export default gendiff;

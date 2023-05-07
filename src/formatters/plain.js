@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-const stringify = (object) => {
-  if (_.isObject(object)) {
+const stringify = (value) => {
+  if (_.isObject(value)) {
     return '[complex value]';
   }
-  if (typeof object === 'string') {
-    return `'${object}'`;
+  if (_.isString(value)) {
+    return `'${value}'`;
   }
-  return object;
+  return value;
 };
 
 const plain = (diffTree) => {
@@ -23,7 +23,7 @@ const plain = (diffTree) => {
       case 'deleted':
         return `Property '${path}${node.key}' was removed`;
       case 'changed':
-        return `Property '${path}${node.key}' was updated. From ${stringify(node.oldValue)} to ${stringify(node.value)}`;
+        return `Property '${path}${node.key}' was updated. From ${stringify(node.oldValue)} to ${stringify(node.newValue)}`;
       default:
         throw new Error(`Unsupported node type: ${node.type}`);
     }

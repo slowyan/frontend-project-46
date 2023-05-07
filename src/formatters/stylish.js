@@ -28,7 +28,7 @@ const stylish = (diffTree) => {
         case 'deleted':
           return `${getMargin(depth)}- ${item.key}: ${stringify(item.value, depth)}`;
         case 'changed':
-          return `${getMargin(depth)}- ${item.key}: ${stringify(item.oldValue, depth)}\n${getMargin(depth)}+ ${item.key}: ${stringify(item.value, depth)}`;
+          return `${getMargin(depth)}- ${item.key}: ${stringify(item.oldValue, depth)}\n${getMargin(depth)}+ ${item.key}: ${stringify(item.newValue, depth)}`;
         default:
           throw new Error(`This ${item.type} is not supported`);
       }
