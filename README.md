@@ -14,7 +14,7 @@ Difference Calculator is a program that determines the difference between two da
 Node.js v18+
 ## Setup
 ```
-git clone git@github.com:Savelyii/frontend-project-46.git
+git clone git@github.com:slowyan/frontend-project-46.git
 npm ci
 npm link
 ```
